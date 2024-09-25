@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html style="background-color: black; color: white;" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <h2 onmouseover="alert('Stepped over by a mouse!')" onmouseleave="alert('Bye bye mouse!')"> Exercise 2 </h2>    
+    <button onclick='aika()'> Press here</button>
+    <button onclick='showTable()'> Press here</button>
+    <button onclick='showLocation()'> Press here</button>
+    <div id="location"></div>
+
+    <form style="margin-top: 15px;">
+        <textarea id="textdata" onfocus="showMessage()"></textarea><br>
+        <span id="charcount"></span>
+        <button onclick="checkTextdata()">Send me</button>
+        <p>Keypresses: <span id="keypressCount">0</span></p>
+        <p id="message" style="display: none; color: red">Please fill in the form with proper data.</p>
+    </form>
+
+    <div onmouseover="showCoordinates()" style="height: 200px; width: 300px; border: solid;">
+        <h2> Mouse coordinates</h2>
+        <p id="demo">Coordinates: </p>
+    </div>
+
+<script>
+
+        const textarea = document.getElementById('textdata');
+        const countDisplay = document.getElementById('keypressCount');
+                let count = 0;
+        
+        textarea.onkeydown = () => {
+                    count++;
+                    countDisplay.textContent = count;
+        };
+        
+        function showCoordinates() {
+            let x = event.clientX;
+            let y = event.clientY;
+            let text = "X: " + x + ", Y: " + y;
+            document.getElementById("demo").innerHTML = text;
+}
+        
+        function aika() {
+            const time = new Date();
+            alert('You clicked me, the time right now is '+ time);
+        }
+        
+        function showTable() {
+                    document.write(`
+                        <table border="1">
+                            <tr>
+                                <th>Name</th>
+                                <th>Position</th>
+                                <th>Salary</th>
+                            </tr>
+                            <tr>
+                                <td>Tiger Nixon</td>
+                                <td>System Architect</td>
+                                <td>$320,800</td>
+                            </tr>
+                            <tr>
+                                <td>Garrett Winters</td>
+                                <td>Accountant</td>
+                                <td>$170,750</td>
+                            </tr>
+                            <tr>
+                                <td>Ashton Cox</td>
+                                <td>Junior Technical Author</td>
+                                <td>$86,000</td>
+                            </tr>
+                            <tr>
+                                <td>Cedric Kelly</td>
+                                <td>Senior Javascript Developer</td>
+                                <td>$433,060</td>
+                            </tr>
+                            <tr>
+                                <td>Airi Satou</td>
+                                <td>Accountant</td>
+                                <td>$162,700</td>
+                            </tr>
+                        </table>
+                    `);
+                    }
+        
+        function showLocation() {
+                    if (navigator.geolocation) {
+                        navigator.geolocation.getCurrentPosition(success);
+                    }
+                }
+        
+        function success(position) {
+                    const latitude = position.coords.latitude;
+                    const longitude = position.coords.longitude;
+        
+                    console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
+        
+                    document.getElementById('location').innerText = `Latitude: ${latitude}, Longitude: ${longitude}`;
+        
+                    window.location.href = `https://www.google.com/maps?q=${latitude},${longitude}`;
+                }
+        
+        function showMessage() {
+                    document.getElementById('message').style.display = 'block';
+                    document.getElementById('textdata').style.backgroundColor = 'grey';
+                }
+        
+        
+        function checkTextdata() {
+                    var textarea = document.getElementById("textdata").value;
+                    if (textarea.trim() === "") {
+                        alert("Form cannot be submitted while empty.");
+                    }
+                }
+        
+</script>        
+
+</body>
+</html>
